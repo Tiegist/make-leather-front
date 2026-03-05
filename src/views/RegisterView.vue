@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
+import { useAuthStore } from '../stores/auth'
 
 const name = ref('')
 const email = ref('')
@@ -9,6 +10,8 @@ const confirmPassword = ref('')
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 const isSubmitting = ref(false)
+const auth = useAuthStore()
+const router = useRouter()
 
 const passwordsMatch = computed(() => password.value.length > 0 && password.value === confirmPassword.value)
 
@@ -41,12 +44,16 @@ const canSubmit = computed(() => {
 })
 
 async function onSubmit() {
-  // Hook up to your registration API here.
-  // Kept intentionally minimal and UI-focused.
   if (!canSubmit.value || isSubmitting.value) return
   isSubmitting.value = true
   try {
-    await new Promise((r) => setTimeout(r, 650))
+    await auth.register({
+      name: name.value.trim(),
+      email: email.value.trim(),
+      password: password.value,
+      password_confirmation: confirmPassword.value,
+    })
+    void router.push('/products')
   } finally {
     isSubmitting.value = false
   }
@@ -54,23 +61,29 @@ async function onSubmit() {
 </script>
 
 <template>
-  <div class="h-[100dvh] overflow-hidden bg-[#0b0a08] text-slate-900">
-    <div class="relative h-full">
-      <!-- Soft background (image + brand tint) -->
-      <div class="absolute inset-0 bg-[#0b0a08]"></div>
-      <div
-        class="absolute inset-0 bg-center bg-cover opacity-70"
-        style="background-image: url('/images/leather-hero.jpg')"
-      ></div>
-      <div class="absolute inset-0 bg-gradient-to-br from-[#0b0a08]/85 via-[#5a3a2b]/45 to-[#0b0a08]/90"></div>
-      <div
-        class="absolute inset-0 bg-[radial-gradient(55%_55%_at_18%_16%,rgba(255,255,255,0.14),transparent_60%),radial-gradient(55%_55%_at_80%_76%,rgba(255,255,255,0.10),transparent_62%)]"
-      ></div>
+  <main class="bg-[var(--brand-beige)]">
+    <section class="mx-auto max-w-7xl px-5 sm:px-8 pt-10 sm:pt-12 pb-14">
+      <RouterLink
+        to="/"
+        class="inline-flex items-center gap-2 rounded-2xl bg-white ring-1 ring-black/5 px-4 py-2 text-sm font-semibold text-slate-800 shadow-premium hover:bg-black/5 transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(90,58,43,0.20)]"
+      >
+        <span aria-hidden="true">←</span>
+        Back to Home
+      </RouterLink>
 
-      <main class="relative h-full px-6 py-8 sm:px-10 sm:py-10">
+      <div class="mt-8 relative rounded-[2rem] overflow-hidden bg-white ring-1 ring-black/5 shadow-premium">
+        <!-- Soft background (contained) -->
+        <div class="absolute inset-0 bg-[#0b0a08]"></div>
+        <div class="absolute inset-0 bg-center bg-cover opacity-70" style="background-image: url('/images/hero-leather.svg')"></div>
+        <div class="absolute inset-0 bg-gradient-to-br from-[#0b0a08]/85 via-[#5a3a2b]/38 to-[#0b0a08]/90"></div>
         <div
-          class="mx-auto h-full w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(540px,640px)_minmax(0,1fr)] gap-8 lg:gap-10 items-center"
-        >
+          class="absolute inset-0 bg-[radial-gradient(55%_55%_at_18%_16%,rgba(255,255,255,0.12),transparent_60%),radial-gradient(55%_55%_at_80%_76%,rgba(255,255,255,0.10),transparent_62%)]"
+        ></div>
+
+        <div class="relative px-6 py-10 sm:px-10 sm:py-12">
+          <div
+            class="mx-auto w-full max-w-7xl grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(540px,640px)_minmax(0,1fr)] gap-8 lg:gap-10 items-center"
+          >
           <!-- Left features -->
           <aside class="hidden lg:block text-white">
             <div class="max-w-sm space-y-4">
@@ -328,11 +341,8 @@ async function onSubmit() {
             </div>
           </aside>
         </div>
-
-        <p class="absolute inset-x-0 bottom-4 text-center text-xs text-white/70 pointer-events-none">
-          © {{ new Date().getFullYear() }} Make Leather
-        </p>
-      </main>
-    </div>
-  </div>
+        </div>
+      </div>
+    </section>
+  </main>
 </template>
