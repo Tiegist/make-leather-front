@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1200" viewBox="0 0 1600 1200">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#fbfaf9"/>
+      <stop offset="0.6" stop-color="#efe9e3"/>
+      <stop offset="1" stop-color="#fbfaf9"/>
+    </linearGradient>
+    <filter id="grain" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.88" numOctaves="2" stitchTiles="stitch" seed="10"/>
+      <feColorMatrix type="matrix" values="
+        1 0 0 0 0
+        0 1 0 0 0
+        0 0 1 0 0
+        0 0 0 0.16 0"/>
+    </filter>
+    <linearGradient id="leather" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#0b0a08"/>
+      <stop offset="0.55" stop-color="#1a1310"/>
+      <stop offset="1" stop-color="#0b0a08"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="18" flood-color="#0f172a" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="1200" fill="url(#bg)"/>
+  <rect width="1600" height="1200" filter="url(#grain)" opacity="0.22"/>
+
+  <g transform="translate(170,420)" filter="url(#shadow)">
+    <path
+      d="M140 390c210 0 410-50 560-164 44-34 104-38 154-10l140 80c42 24 48 82 12 114-110 98-310 170-640 170H230c-92 0-166-74-166-166 0-80 54-150 126-160Z"
+      fill="url(#leather)"
+      stroke="rgba(90,58,43,0.25)"
+      stroke-width="4"
+    />
+    <path d="M270 260c150 18 300-24 440-102" stroke="rgba(255,255,255,0.12)" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M240 460h780" stroke="rgba(255,255,255,0.08)" stroke-width="16" stroke-linecap="round" fill="none"/>
+    <path d="M610 325c80 18 150 18 220 0" stroke="rgba(255,255,255,0.10)" stroke-width="14" stroke-linecap="round" fill="none"/>
+  </g>
+</svg>

@@ -1,10 +1,11 @@
 Add a high-quality leather product image named:
 
-  leather-hero.jpg
+  hero-leather.svg  (already provided as a premium placeholder)
+  OR replace with: hero-leather.jpg
 
 into this same folder (`public/images/`).
 
-It will be used as the left-side hero image on the `/login` page.
+It will be used as the hero background across the system (Home, Products) and the auth panels.
 
 Recommended:
 - Landscape photo, at least 2000px wide

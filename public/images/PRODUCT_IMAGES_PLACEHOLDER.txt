@@ -1,0 +1,22 @@
+Add your high-quality product images in:
+
+  public/images/products/
+
+Suggested filenames used by the site:
+- shoes-01.svg  (provided)
+- shoes-02.svg  (provided)
+- bag-01.svg    (provided)
+- bag-02.svg    (provided)
+- belt-01.svg   (provided)
+- belt-02.svg   (provided)
+- wallet-01.svg (provided)
+- accessory-01.svg (provided)
+
+Also add a hero background image:
+
+  public/images/hero-leather.svg  (provided)
+  OR replace with: hero-leather.jpg
+
+Tip:
+- Use 1600px+ wide images for best clarity
+- Keep warm tones to match the brand palette
