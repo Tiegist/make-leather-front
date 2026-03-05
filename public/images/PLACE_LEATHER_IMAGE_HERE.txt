@@ -1,0 +1,12 @@
+Add a high-quality leather product image named:
+
+  leather-hero.jpg
+
+into this same folder (`public/images/`).
+
+It will be used as the left-side hero image on the `/login` page.
+
+Recommended:
+- Landscape photo, at least 2000px wide
+- Subject centered with some negative space
+- Warm tones / neutral background for best blend with the overlay
