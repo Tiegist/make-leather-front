@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* Tailwind v4: allow class-based dark mode by toggling `.dark` on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   :root {
     --brand-ink: #0b0a08;

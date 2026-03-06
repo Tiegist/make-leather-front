@@ -29,17 +29,38 @@ export const useAuthStore = defineStore('auth', {
       if (this.isBootstrapped) return
       this.isBootstrapped = true
       try {
-        const me = await apiFetch<{ user: ApiUser | null; is_admin: boolean }>('/api/me', { throwOnError: false })
-        if (me?.user) {
-          this.user = me.user
-          this.isAdmin = Boolean(me.is_admin)
-        } else {
-          this.user = null
-          this.isAdmin = false
+        // First, hydrate from localStorage so a page refresh keeps UI state
+        try {
+          const storedUser = localStorage.getItem('auth_user')
+          const storedAdmin = localStorage.getItem('auth_is_admin')
+          if (storedUser) {
+            this.user = JSON.parse(storedUser) as ApiUser
+            this.isAdmin = storedAdmin === '1'
+          }
+        } catch {
+          // ignore localStorage errors
+        }
+
+        // Then, validate against the backend session (if cookies are still valid)
+        const me = await apiFetch<{ user: ApiUser | null; is_admin: boolean } | { message?: string } | null>(
+          '/api/me',
+          { throwOnError: false },
+        )
+
+        if (me && typeof me === 'object' && 'user' in me && (me as any).user) {
+          const payload = me as { user: ApiUser; is_admin: boolean }
+          this.user = payload.user
+          this.isAdmin = Boolean(payload.is_admin)
+          try {
+            localStorage.setItem('auth_user', JSON.stringify(this.user))
+            localStorage.setItem('auth_is_admin', this.isAdmin ? '1' : '0')
+          } catch {
+            // ignore
+          }
         }
       } catch {
-        this.user = null
-        this.isAdmin = false
+        // On bootstrap errors, keep whatever local state we have so a refresh
+        // doesn't force a logout purely due to a transient network / backend issue.
       }
     },
 
@@ -54,6 +75,12 @@ export const useAuthStore = defineStore('auth', {
       const me = await apiFetch<{ user: ApiUser; is_admin: boolean }>('/api/me')
       this.user = me.user
       this.isAdmin = Boolean(me.is_admin)
+      try {
+        localStorage.setItem('auth_user', JSON.stringify(this.user))
+        localStorage.setItem('auth_is_admin', this.isAdmin ? '1' : '0')
+      } catch {
+        // ignore
+      }
     },
 
     async register(opts: { name: string; email: string; password: string; password_confirmation: string }) {
@@ -67,6 +94,12 @@ export const useAuthStore = defineStore('auth', {
       const me = await apiFetch<{ user: ApiUser; is_admin: boolean }>('/api/me')
       this.user = me.user
       this.isAdmin = Boolean(me.is_admin)
+      try {
+        localStorage.setItem('auth_user', JSON.stringify(this.user))
+        localStorage.setItem('auth_is_admin', this.isAdmin ? '1' : '0')
+      } catch {
+        // ignore
+      }
     },
 
     async logout() {
@@ -74,6 +107,12 @@ export const useAuthStore = defineStore('auth', {
       this.user = null
       this.isAdmin = false
       this.isBootstrapped = true
+      try {
+        localStorage.removeItem('auth_user')
+        localStorage.removeItem('auth_is_admin')
+      } catch {
+        // ignore
+      }
     },
   },
 })
