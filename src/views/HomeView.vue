@@ -19,7 +19,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
       <div class="relative">
         <div class="mx-auto max-w-7xl px-5 sm:px-8 py-20 sm:py-24 lg:py-28">
           <div class="max-w-2xl text-white animate-fade-up">
-            <p class="text-xs font-medium tracking-[0.18em] uppercase text-white/80">Premium leather products</p>
+            <p class="text-xs font-medium tracking-[0.18em] uppercase text-white/80"> leather products</p>
             <h1 class="mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
               Crafted for Elegance
             </h1>
@@ -48,7 +48,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
             <div class="rounded-3xl bg-white/10 ring-1 ring-white/15 backdrop-blur-sm p-6 text-white">
               <p class="text-xs font-medium tracking-[0.18em] uppercase text-white/80">Quality</p>
               <p class="mt-2 text-sm text-white/75 leading-relaxed">
-                Premium materials selected for texture, strength, and graceful aging.
+                 materials selected for texture, strength, and graceful aging.
               </p>
             </div>
             <div class="rounded-3xl bg-white/10 ring-1 ring-white/15 backdrop-blur-sm p-6 text-white">
@@ -77,7 +77,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
             The pieces customers return for
           </h2>
           <p class="mt-3 text-sm text-slate-600 leading-relaxed">
-            A curated selection that highlights leather quality, refined silhouettes, and premium finishing.
+            A curated selection that highlights leather quality, refined silhouettes, and  finishing.
           </p>
         </div>
         <RouterLink
@@ -173,7 +173,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
               Quality you can see. Craft you can feel.
             </h2>
             <p class="mt-3 text-sm text-slate-600 leading-relaxed max-w-xl">
-              Our design language is premium and calm—generous spacing, refined typography, and consistent details that
+              Our design language is  calm—generous spacing, refined typography, and consistent details that
               build trust.
             </p>
 
@@ -193,7 +193,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
               <div class="rounded-3xl bg-[var(--brand-beige)] ring-1 ring-black/5 p-7">
                 <p class="text-sm font-semibold tracking-tight text-slate-900">Durability</p>
                 <p class="mt-2 text-sm text-slate-600 leading-relaxed">
-                  Built to hold shape, resist daily wear, and stay premium through repeated use.
+                  Built to hold shape, resist daily wear, and stay  through repeated use.
                 </p>
               </div>
             </div>
@@ -230,7 +230,7 @@ import SmartImage from '../components/ui/SmartImage.vue'
         <div class="mt-10 grid gap-6 lg:grid-cols-3">
           <figure class="rounded-3xl bg-[var(--brand-beige)] ring-1 ring-black/5 p-7 shadow-premium">
             <blockquote class="text-sm text-slate-700 leading-relaxed">
-              “The leather feels exceptional—subtle texture, clean finishing, and a premium weight.”
+              “The leather feels exceptional—subtle texture, clean finishing, and weight.”
             </blockquote>
             <figcaption class="mt-5 text-xs text-slate-500">— A. Customer</figcaption>
           </figure>

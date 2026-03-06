@@ -5,6 +5,8 @@ import { useAuthStore } from '../stores/auth'
 
 const email = ref('')
 const password = ref('')
+const loading = ref(false)
+const errorMessage = ref<string | null>(null)
 const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
@@ -12,10 +14,33 @@ const route = useRoute()
 const canSubmit = computed(() => email.value.trim().length > 0 && password.value.length > 0)
 
 async function onSubmit() {
-  if (!canSubmit.value) return
-  const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/products'
-  await auth.login({ email: email.value.trim(), password: password.value })
-  void router.push(redirect)
+  if (!canSubmit.value || loading.value) return
+
+  loading.value = true
+  errorMessage.value = null
+  const startedAt = performance.now()
+
+  try {
+    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/products'
+    await auth.login({ email: email.value.trim(), password: password.value })
+    await router.push(redirect)
+  } catch (err: any) {
+    // apiFetch throws a structured error with status/message when the backend responds
+    // but network failures (like failed CSRF cookie) will surface here too
+    if (err && typeof err === 'object' && 'message' in err && typeof err.message === 'string') {
+      errorMessage.value = err.message
+    } else {
+      errorMessage.value = 'Login failed. Please try again.'
+    }
+    // Keep the form visible so the user can see the error and try again
+  } finally {
+    const elapsed = performance.now() - startedAt
+    const minDuration = 600
+    if (elapsed < minDuration) {
+      await new Promise((resolve) => setTimeout(resolve, minDuration - elapsed))
+    }
+    loading.value = false
+  }
 }
 </script>
 
@@ -115,11 +140,41 @@ async function onSubmit() {
 
                 <button
                   type="submit"
-                  :disabled="!canSubmit"
+                  :disabled="!canSubmit || loading"
                   class="w-full inline-flex items-center justify-center rounded-xl bg-[#5a3a2b] px-4 py-3 text-sm font-semibold text-white shadow-[0_18px_40px_-18px_rgba(90,58,43,0.85)] transition duration-200 ease-out hover:brightness-[1.06] active:brightness-[0.98] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(90,58,43,0.32)] disabled:cursor-not-allowed disabled:opacity-60"
                 >
-                  Log in
+                  <svg
+                    v-if="loading"
+                    class="animate-spin h-4 w-4 text-white"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      class="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      stroke-width="4"
+                    />
+                    <path
+                      class="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+                    />
+                  </svg>
+                  <span v-if="!loading">
+                    Log in
+                  </span>
+                  <span v-else class="ml-2">
+                    Logging in...
+                  </span>
                 </button>
+
+                <p v-if="errorMessage" class="pt-2 text-center text-xs text-red-600">
+                  {{ errorMessage }}
+                </p>
 
                 <p class="pt-1 text-center text-xs text-slate-500">
                   By continuing, you agree to a polished, brand-consistent experience.

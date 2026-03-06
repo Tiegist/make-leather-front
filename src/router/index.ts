@@ -14,11 +14,13 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('../views/LoginView.vue'),
+      meta: { layout: 'blank' },
     },
     {
       path: '/register',
       name: 'register',
       component: () => import('../views/RegisterView.vue'),
+      meta: { layout: 'blank' },
     },
     {
       path: '/about',
@@ -39,7 +41,7 @@ const router = createRouter({
       path: '/upload-products',
       name: 'upload-products',
       component: () => import('../views/UploadProductsView.vue'),
-      meta: { requiresAdmin: true },
+      meta: { requiresAdmin: true, layout: 'admin' },
     },
   ],
 })
