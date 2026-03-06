@@ -6,6 +6,7 @@ export type ApiCategory = {
   name: string
   slug: string
   description?: string | null
+  is_active: boolean
 }
 
 export const useCatalogStore = defineStore('catalog', {

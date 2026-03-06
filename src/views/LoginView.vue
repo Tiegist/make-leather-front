@@ -21,8 +21,13 @@ async function onSubmit() {
   const startedAt = performance.now()
 
   try {
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/products'
     await auth.login({ email: email.value.trim(), password: password.value })
+    const redirect =
+      typeof route.query.redirect === 'string'
+        ? route.query.redirect
+        : auth.isAdmin
+          ? '/admin/dashboard'
+          : '/products'
     await router.push(redirect)
   } catch (err: any) {
     // apiFetch throws a structured error with status/message when the backend responds
