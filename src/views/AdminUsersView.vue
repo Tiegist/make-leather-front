@@ -69,13 +69,13 @@ onMounted(() => {
         </p>
       </div>
       <div class="flex items-center gap-3">
-        <button
+        <!-- <button
           type="button"
           class="inline-flex items-center justify-center rounded-2xl bg-[var(--brand-brown)] px-5 py-2.5 text-sm font-semibold text-white shadow-[0_18px_40px_-22px_rgba(90,58,43,0.85)] hover:brightness-[1.06] active:brightness-[0.98] transition focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[rgba(90,58,43,0.32)]"
         >
           <span class="mr-1" aria-hidden="true">+</span>
           New user
-        </button>
+        </button> -->
       </div>
     </header>
 
