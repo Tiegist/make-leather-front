@@ -83,11 +83,31 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async register(opts: { name: string; email: string; password: string; password_confirmation: string }) {
+    async register(opts: {
+      name: string;
+      email: string;
+      password: string;
+      password_confirmation: string;
+      address?: string;
+      phone?: string;
+      image?: File | null;
+      role?: string;
+    }) {
       await ensureCsrfCookie()
+
+      const formData = new FormData()
+      formData.append('name', opts.name)
+      formData.append('email', opts.email)
+      formData.append('password', opts.password)
+      formData.append('password_confirmation', opts.password_confirmation)
+      formData.append('role', opts.role || 'Guest')
+      if (opts.address) formData.append('address', opts.address)
+      if (opts.phone) formData.append('phone', opts.phone)
+      if (opts.image) formData.append('image', opts.image)
+
       const res = await apiFetch<{ user: ApiUser }>('/api/register', {
         method: 'POST',
-        json: opts,
+        body: formData,
       })
       this.user = res.user
 

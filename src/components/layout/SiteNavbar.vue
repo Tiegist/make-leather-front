@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../../stores/auth'
 
 const route = useRoute()
+const router = useRouter()
 const isMenuOpen = ref(false)
 const auth = useAuthStore()
 
@@ -16,9 +17,10 @@ const navItems = [
 
 const isActive = computed(() => (to: string) => route.path === to)
 
-function logoutAndCloseMenu() {
-  void auth.logout()
+async function logoutAndCloseMenu() {
+  await auth.logout()
   isMenuOpen.value = false
+  void router.push('/')
 }
 </script>
 
@@ -96,7 +98,12 @@ function logoutAndCloseMenu() {
             @click="isMenuOpen = !isMenuOpen"
           >
             <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16" />
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.8"
+                d="M4 6h16M4 12h16M4 18h16"
+              />
             </svg>
           </button>
         </div>

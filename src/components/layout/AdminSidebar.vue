@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import { useAuthStore } from '../../stores/auth'
 import { useThemeStore } from '../../stores/theme'
 
 const route = useRoute()
+const router = useRouter()
 const auth = useAuthStore()
 const theme = useThemeStore()
 const isOpenMobile = ref(false)
@@ -41,6 +42,7 @@ async function logout() {
   await auth.logout()
   isAccountOpen.value = false
   closeMobile()
+  void router.push('/')
 }
 
 function iconPath(name: (typeof coreItems)[number]['icon']) {
@@ -71,8 +73,12 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
           <span class="text-[11px] font-semibold tracking-[0.18em]">ML</span>
         </span>
         <div class="leading-tight">
-          <p class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">Make Leather</p>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">Premium leather products</p>
+          <p class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
+            Make Leather
+          </p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">
+            Premium leather products
+          </p>
         </div>
       </RouterLink>
 
@@ -83,7 +89,12 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
         @click="isOpenMobile = !isOpenMobile"
       >
         <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M4 6h16M4 12h16M4 18h16" />
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="1.8"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
         </svg>
       </button>
     </div>
@@ -92,12 +103,18 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
   <!-- Mobile overlay -->
   <div v-if="isOpenMobile" class="md:hidden fixed inset-0 z-40">
     <button class="absolute inset-0 bg-black/40" aria-label="Close sidebar" @click="closeMobile" />
-    <div class="absolute left-0 top-0 h-full w-80 bg-white shadow-xl ring-1 ring-black/10 dark:bg-slate-950 dark:ring-white/10">
+    <div
+      class="absolute left-0 top-0 h-full w-80 bg-white shadow-xl ring-1 ring-black/10 dark:bg-slate-950 dark:ring-white/10"
+    >
       <div class="h-16 flex items-center px-5 border-b border-black/5">
         <p class="text-sm font-semibold text-slate-900 dark:text-white">Admin Menu</p>
       </div>
       <div class="p-4">
-        <p class="px-3 text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400">Core</p>
+        <p
+          class="px-3 text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400"
+        >
+          Core
+        </p>
       </div>
       <nav class="px-3 space-y-1">
         <RouterLink
@@ -114,11 +131,19 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
         >
           <span
             class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 transition dark:bg-white/5 dark:ring-white/10"
-            :class="isActive(item.to) ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300'"
+            :class="
+              isActive(item.to)
+                ? 'text-slate-900 dark:text-white'
+                : 'text-slate-600 dark:text-slate-300'
+            "
             aria-hidden="true"
           >
             <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor">
-              <path :d="iconPath(item.icon)" :fill-rule="item.icon === 'box' ? 'evenodd' : undefined" :clip-rule="item.icon === 'box' ? 'evenodd' : undefined" />
+              <path
+                :d="iconPath(item.icon)"
+                :fill-rule="item.icon === 'box' ? 'evenodd' : undefined"
+                :clip-rule="item.icon === 'box' ? 'evenodd' : undefined"
+              />
             </svg>
           </span>
           {{ item.label }}
@@ -126,18 +151,24 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
       </nav>
 
       <div class="mt-auto p-4 border-t border-black/5 dark:border-white/10">
-        <div class="rounded-2xl ring-1 ring-black/10 bg-white p-3 dark:bg-slate-950 dark:ring-white/10">
+        <div
+          class="rounded-2xl ring-1 ring-black/10 bg-white p-3 dark:bg-slate-950 dark:ring-white/10"
+        >
           <button
             type="button"
             class="w-full flex items-center justify-between gap-3 px-2 py-2 rounded-xl hover:bg-black/5 transition dark:hover:bg-white/10"
             @click="toggleAccount"
           >
             <span class="flex items-center gap-3 min-w-0">
-              <span class="grid h-10 w-10 place-items-center rounded-2xl bg-black/5 text-slate-800 ring-1 ring-black/10 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10">
+              <span
+                class="grid h-10 w-10 place-items-center rounded-2xl bg-black/5 text-slate-800 ring-1 ring-black/10 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10"
+              >
                 <span class="text-xs font-semibold tracking-[0.12em]">{{ initials }}</span>
               </span>
               <span class="min-w-0 text-left leading-tight">
-                <span class="block truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
+                <span
+                  class="block truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white"
+                >
                   {{ auth.user?.name ?? 'Admin User' }}
                 </span>
                 <span class="block truncate text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">
@@ -167,7 +198,9 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
               @click="theme.toggle()"
             >
               <span class="inline-flex items-center gap-3">
-                <span class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 dark:bg-white/5 dark:ring-white/10">
+                <span
+                  class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 dark:bg-white/5 dark:ring-white/10"
+                >
                   <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true">
                     <path
                       d="M10 2a.75.75 0 01.75.75V4a.75.75 0 01-1.5 0V2.75A.75.75 0 0110 2zm6.364 3.636a.75.75 0 010 1.061l-.884.884a.75.75 0 11-1.06-1.06l.883-.885a.75.75 0 011.061 0zM18 10a.75.75 0 01-.75.75H16a.75.75 0 010-1.5h1.25A.75.75 0 0118 10zM5.276 6.52a.75.75 0 11-1.06 1.06l-.885-.883a.75.75 0 111.06-1.061l.885.884zM4 10a.75.75 0 01-.75.75H2a.75.75 0 010-1.5h1.25A.75.75 0 014 10zm1.216 6.48a.75.75 0 010-1.06l.884-.885a.75.75 0 111.06 1.06l-.883.885a.75.75 0 01-1.061 0zM10 16a.75.75 0 01.75.75V18a.75.75 0 01-1.5 0v-1.25A.75.75 0 0110 16zm6.48 1.216a.75.75 0 01-1.06 0l-.885-.884a.75.75 0 111.06-1.06l.885.883a.75.75 0 010 1.061z"
@@ -179,7 +212,9 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
               </span>
               <span
                 class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-                :class="theme.dark ? 'bg-slate-900 dark:bg-white/20' : 'bg-slate-200 dark:bg-white/10'"
+                :class="
+                  theme.dark ? 'bg-slate-900 dark:bg-white/20' : 'bg-slate-200 dark:bg-white/10'
+                "
               >
                 <span
                   class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -214,53 +249,75 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
           <span class="text-[11px] font-semibold tracking-[0.18em]">ML</span>
         </span>
         <div class="leading-tight">
-          <p class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">Make Leather</p>
-          <p class="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">Premium leather products</p>
+          <p class="text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
+            Make Leather
+          </p>
+          <p class="text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">
+            Premium leather products
+          </p>
         </div>
       </RouterLink>
     </div>
 
     <div class="flex-1 overflow-y-auto px-4 py-5">
-      <p class="px-3 text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400">Core</p>
-      <nav class="mt-2 space-y-1">
-      <RouterLink
-        v-for="item in coreItems"
-        :key="item.to"
-        :to="item.to"
-        class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition"
-        :class="
-          isActive(item.to)
-            ? 'text-slate-900 bg-black/5 dark:text-white dark:bg-white/10'
-            : 'text-slate-700 hover:text-slate-900 hover:bg-black/5 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/10'
-        "
+      <p
+        class="px-3 text-xs font-semibold tracking-[0.18em] uppercase text-slate-500 dark:text-slate-400"
       >
-        <span
-          class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 transition dark:bg-white/5 dark:ring-white/10"
-          :class="isActive(item.to) ? 'text-slate-900 dark:text-white' : 'text-slate-600 dark:text-slate-300'"
-          aria-hidden="true"
+        Core
+      </p>
+      <nav class="mt-2 space-y-1">
+        <RouterLink
+          v-for="item in coreItems"
+          :key="item.to"
+          :to="item.to"
+          class="flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition"
+          :class="
+            isActive(item.to)
+              ? 'text-slate-900 bg-black/5 dark:text-white dark:bg-white/10'
+              : 'text-slate-700 hover:text-slate-900 hover:bg-black/5 dark:text-slate-300 dark:hover:text-white dark:hover:bg-white/10'
+          "
         >
-          <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor">
-            <path :d="iconPath(item.icon)" :fill-rule="item.icon === 'box' ? 'evenodd' : undefined" :clip-rule="item.icon === 'box' ? 'evenodd' : undefined" />
-          </svg>
-        </span>
-        {{ item.label }}
-      </RouterLink>
+          <span
+            class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 transition dark:bg-white/5 dark:ring-white/10"
+            :class="
+              isActive(item.to)
+                ? 'text-slate-900 dark:text-white'
+                : 'text-slate-600 dark:text-slate-300'
+            "
+            aria-hidden="true"
+          >
+            <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor">
+              <path
+                :d="iconPath(item.icon)"
+                :fill-rule="item.icon === 'box' ? 'evenodd' : undefined"
+                :clip-rule="item.icon === 'box' ? 'evenodd' : undefined"
+              />
+            </svg>
+          </span>
+          {{ item.label }}
+        </RouterLink>
       </nav>
     </div>
 
     <div class="p-3 border-t border-black/5">
-      <div class="rounded-2xl ring-1 ring-black/10 bg-white p-3 dark:bg-slate-950 dark:ring-white/10">
+      <div
+        class="rounded-2xl ring-1 ring-black/10 bg-white p-3 dark:bg-slate-950 dark:ring-white/10"
+      >
         <button
           type="button"
           class="w-full flex items-center justify-between gap-3 px-2 py-2 rounded-xl hover:bg-black/5 transition dark:hover:bg-white/10"
           @click="toggleAccount"
         >
           <span class="flex items-center gap-3 min-w-0">
-            <span class="grid h-10 w-10 place-items-center rounded-2xl bg-black/5 text-slate-800 ring-1 ring-black/10 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10">
+            <span
+              class="grid h-10 w-10 place-items-center rounded-2xl bg-black/5 text-slate-800 ring-1 ring-black/10 dark:bg-white/5 dark:text-slate-200 dark:ring-white/10"
+            >
               <span class="text-xs font-semibold tracking-[0.12em]">{{ initials }}</span>
             </span>
             <span class="min-w-0 text-left leading-tight">
-              <span class="block truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
+              <span
+                class="block truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white"
+              >
                 {{ auth.user?.name ?? 'Admin User' }}
               </span>
               <span class="block truncate text-[11px] text-slate-500 dark:text-slate-400 -mt-0.5">
@@ -290,7 +347,9 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
             @click="theme.toggle()"
           >
             <span class="inline-flex items-center gap-3">
-              <span class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 dark:bg-white/5 dark:ring-white/10">
+              <span
+                class="grid h-8 w-8 place-items-center rounded-xl bg-black/5 ring-1 ring-black/10 dark:bg-white/5 dark:ring-white/10"
+              >
                 <svg viewBox="0 0 20 20" class="h-4 w-4" fill="currentColor" aria-hidden="true">
                   <path
                     d="M10 2a.75.75 0 01.75.75V4a.75.75 0 01-1.5 0V2.75A.75.75 0 0110 2zm6.364 3.636a.75.75 0 010 1.061l-.884.884a.75.75 0 11-1.06-1.06l.883-.885a.75.75 0 011.061 0zM18 10a.75.75 0 01-.75.75H16a.75.75 0 010-1.5h1.25A.75.75 0 0118 10zM5.276 6.52a.75.75 0 11-1.06 1.06l-.885-.883a.75.75 0 111.06-1.061l.885.884zM4 10a.75.75 0 01-.75.75H2a.75.75 0 010-1.5h1.25A.75.75 0 014 10zm1.216 6.48a.75.75 0 010-1.06l.884-.885a.75.75 0 111.06 1.06l-.883.885a.75.75 0 01-1.061 0zM10 16a.75.75 0 01.75.75V18a.75.75 0 01-1.5 0v-1.25A.75.75 0 0110 16zm6.48 1.216a.75.75 0 01-1.06 0l-.885-.884a.75.75 0 111.06-1.06l.885.883a.75.75 0 010 1.061z"
@@ -302,7 +361,9 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
             </span>
             <span
               class="relative inline-flex h-5 w-9 items-center rounded-full transition-colors"
-              :class="theme.dark ? 'bg-slate-900 dark:bg-white/20' : 'bg-slate-200 dark:bg-white/10'"
+              :class="
+                theme.dark ? 'bg-slate-900 dark:bg-white/20' : 'bg-slate-200 dark:bg-white/10'
+              "
             >
               <span
                 class="inline-block h-4 w-4 transform rounded-full bg-white transition-transform"
@@ -323,4 +384,3 @@ function iconPath(name: (typeof coreItems)[number]['icon']) {
     </div>
   </aside>
 </template>
-
