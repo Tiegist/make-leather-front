@@ -5,6 +5,7 @@ import SiteNavbar from './components/layout/SiteNavbar.vue'
 import SiteFooter from './components/layout/SiteFooter.vue'
 import AdminSidebar from './components/layout/AdminSidebar.vue'
 import AdminTopbar from './components/layout/AdminTopbar.vue'
+import ToastViewport from './components/ui/ToastViewport.vue'
 import { useAuthStore } from './stores/auth'
 import { useThemeStore } from './stores/theme'
 
@@ -43,6 +44,8 @@ onMounted(() => {
       <RouterView />
       <SiteFooter v-if="showSiteChrome" />
     </template>
+
+    <ToastViewport />
   </div>
 </template>
 

@@ -166,7 +166,7 @@ const teamMembers = [
               <!-- Content Overlay / Bottom Bar -->
               <div class="absolute bottom-6 left-6 right-6">
                 <div
-                  class="bg-orange-600 rounded-3xl p-5 text-center text-white shadow-lg transform transition-transform duration-300 group-hover:scale-[1.02]"
+                  class="bg-amber-950 rounded-3xl p-5 text-center text-white shadow-lg transform transition-transform duration-300 group-hover:scale-[1.02]"
                 >
                   <h3 class="font-bold text-lg leading-tight">{{ member.name }}</h3>
                   <p class="text-xs text-orange-100 mt-1 font-medium opacity-90">

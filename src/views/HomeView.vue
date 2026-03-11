@@ -113,7 +113,7 @@ onMounted(() => {
         <article class="group rounded-3xl bg-white ring-1 ring-black/5 shadow-premium overflow-hidden hover-lift transition-all duration-500 reveal reveal-fade-left">
           <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
             <div class="h-full w-full transition duration-700 ease-out group-hover:scale-[1.08]">
-              <SmartImage src="/images/products/bag-01.svg" alt="Leather bag" fallback-label="Leather bag" />
+              <img src="/leather-travel-bags.jpg" alt="Leather bag" fallback-label="Leather bag" />
             </div>
           </div>
           <div class="p-6">
@@ -134,11 +134,11 @@ onMounted(() => {
         <article class="group rounded-3xl bg-white ring-1 ring-black/5 shadow-premium overflow-hidden hover-lift transition-all duration-500 reveal reveal-fade-up">
           <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
             <div class="h-full w-full transition duration-700 ease-out group-hover:scale-[1.08]">
-              <SmartImage src="/images/products/shoes-01.svg" alt="Leather shoes" fallback-label="Leather shoes" />
+              <img src="/leather-shoe.jpg" alt="Leather shoes" fallback-label="Leather shoes" />
             </div>
           </div>
           <div class="p-6">
-            <p class="text-sm font-semibold tracking-tight text-slate-900 group-hover:text-[var(--brand-brown)] transition-colors duration-300">Classic Oxford Shoes</p>
+            <p class="text-sm font-semibold tracking-tight text-slate-900 group-hover:text-[var(--brand-brown)] transition-colors duration-300">Classic Shoes</p>
             <p class="mt-2 text-sm text-slate-600 leading-relaxed">
               Hand-finished leather with a clean, timeless silhouette.
             </p>
@@ -155,7 +155,7 @@ onMounted(() => {
         <article class="group rounded-3xl bg-white ring-1 ring-black/5 shadow-premium overflow-hidden hover-lift transition-all duration-500 reveal reveal-fade-right">
           <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
             <div class="h-full w-full transition duration-700 ease-out group-hover:scale-[1.08]">
-              <SmartImage src="/images/products/wallet-01.svg" alt="Leather wallet" fallback-label="Leather wallet" />
+              <img src="/leather-wallet.jpg" alt="Leather wallet" fallback-label="Leather wallet" />
             </div>
           </div>
           <div class="p-6">

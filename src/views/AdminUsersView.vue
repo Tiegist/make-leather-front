@@ -2,11 +2,13 @@
 import { computed, onMounted, ref } from 'vue'
 import { apiFetch } from '../lib/api'
 import type { ApiUser } from '../stores/auth'
+import { useToastStore } from '../stores/toast'
 
 const users = ref<ApiUser[]>([])
 const isLoading = ref(false)
 const search = ref('')
 const error = ref<string | null>(null)
+const toast = useToastStore()
 
 type ExtendedUser = ApiUser & { phone?: string | null; role?: string | null }
 
@@ -45,6 +47,7 @@ async function loadUsers() {
     }
   } catch (e: any) {
     error.value = e?.message ? String(e.message) : 'Failed to load users.'
+    toast.error(error.value)
     users.value = []
   } finally {
     isLoading.value = false
