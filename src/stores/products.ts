@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { apiFetch } from '../lib/api'
+import { useToastStore } from './toast'
 
 export type ApiProductCategory = {
   id: number
@@ -75,6 +76,7 @@ export const useProductsStore = defineStore('products', {
     async createProduct(input: {
       category_id: number | null
       name: string
+      slug?: string
       description: string
       price: number
       main_image?: string | null
@@ -82,17 +84,24 @@ export const useProductsStore = defineStore('products', {
       is_active?: boolean
       stock?: number
     }) {
-      const res = await apiFetch<ApiProduct>('/api/products', {
-        method: 'POST',
-        json: {
-          ...input,
-          is_featured: Boolean(input.is_featured),
-          is_active: input.is_active ?? true,
-          stock: input.stock ?? 0,
-        },
-      })
-      // Optimistically add to top
-      this.items.unshift(res)
+      const toast = useToastStore()
+      try {
+        const res = await apiFetch<ApiProduct>('/api/products', {
+          method: 'POST',
+          json: {
+            ...input,
+            is_featured: Boolean(input.is_featured),
+            is_active: input.is_active ?? true,
+            stock: input.stock ?? 0,
+          },
+        })
+        // Optimistically add to top
+        this.items.unshift(res)
+        toast.success('Product created.')
+      } catch (e: any) {
+        toast.error(e?.message && typeof e.message === 'string' ? e.message : 'Failed to create product.')
+        throw e
+      }
     },
   },
 })

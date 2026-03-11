@@ -151,7 +151,7 @@ async function submitCreate() {
       category_id: createCategoryId.value,
       name,
       slug,
-      description: description || null,
+      description: description || '',
       price: Number(createPrice.value),
       stock: createStock.value,
       main_image: createMainImage.value,

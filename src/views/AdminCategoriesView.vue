@@ -2,8 +2,10 @@
 import { computed, onMounted, ref, watch } from 'vue'
 import { useCatalogStore, type ApiCategory } from '../stores/catalog'
 import { apiFetch } from '../lib/api'
+import { useToastStore } from '../stores/toast'
 
 const catalog = useCatalogStore()
+const toast = useToastStore()
 
 const search = ref('')
 const isCreating = ref(false)
@@ -55,9 +57,11 @@ async function submitCreate() {
     createDescription.value = ''
     isCreating.value = false
     await catalog.fetchCategories()
+    toast.success('Category created.')
   } catch (e: any) {
     createError.value =
       e?.message && typeof e.message === 'string' ? e.message : 'Failed to create category. Please try again.'
+    toast.error(createError.value ?? 'Failed to create category.')
   } finally {
     isSaving.value = false
   }
@@ -72,8 +76,10 @@ async function toggleActive(cat: ApiCategory) {
       method: 'PATCH',
       json: { is_active: next },
     })
+    toast.info(`Category ${next ? 'activated' : 'deactivated'}.`)
   } catch {
     cat.is_active = previous
+    toast.error('Failed to update category status.')
   }
 }
 

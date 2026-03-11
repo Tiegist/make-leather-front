@@ -6,6 +6,14 @@ type ApiError = {
 
 const API_BASE_URL = (import.meta.env.VITE_API_BASE_URL as string | undefined)?.replace(/\/$/, '') ?? ''
 
+function getAuthToken() {
+  try {
+    return localStorage.getItem('auth_token')
+  } catch {
+    return null
+  }
+}
+
 function getCookie(name: string) {
   if (typeof document === 'undefined') return null
   const cookies = document.cookie ? document.cookie.split('; ') : []
@@ -39,6 +47,11 @@ export async function apiFetch<T>(
   const throwOnError = init?.throwOnError ?? true
   const headers = new Headers(init?.headers ?? {})
   headers.set('X-Requested-With', 'XMLHttpRequest')
+
+  const token = getAuthToken()
+  if (token && !headers.has('Authorization')) {
+    headers.set('Authorization', `Bearer ${token}`)
+  }
 
   if (init?.json !== undefined) {
     headers.set('Content-Type', 'application/json')
