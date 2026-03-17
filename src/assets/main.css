@@ -5,9 +5,9 @@
 
 @layer base {
   :root {
-    --brand-ink: #0b0a08;
-    --brand-brown: #5a3a2b;
-    --brand-beige: #fbfaf9;
+    --brand-ink: #2c1f18;
+    --brand-brown: #713200;
+    --brand-beige: #f7efe2;
     --brand-gold: #b89b5e;
     --brand-navy: #111827;
   }
@@ -18,12 +18,12 @@
 
   body {
     background: var(--brand-beige);
-    color: #0f172a;
+    color: #2c1f18;
     text-rendering: optimizeLegibility;
   }
 
   ::selection {
-    background: rgba(90, 58, 43, 0.18);
+    background: rgba(113, 50, 0, 0.18);
   }
 }
 

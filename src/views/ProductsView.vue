@@ -32,7 +32,7 @@ watch(
 )
 
 const money = (amount: number) =>
-  new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(amount)
+  new Intl.NumberFormat(undefined, { style: 'currency', currency: 'ETB', maximumFractionDigits: 0 }).format(amount)
 
 const productPrice = (p: any) => {
   const n = typeof p.price === 'number' ? p.price : Number(p.price)

@@ -36,7 +36,8 @@ async function logoutAndCloseMenu() {
               class="grid h-9 w-9 place-items-center rounded-2xl bg-[var(--brand-brown)] text-white shadow-sm ring-1 ring-black/10 transition group-hover:brightness-[1.06]"
               aria-hidden="true"
             >
-              <span class="text-[11px] font-semibold tracking-[0.18em]">ML</span>
+              <!-- <span class="text-[11px] font-semibold tracking-[0.18em]">ML</span> -->
+               <img src="/leather-logo.jpg" alt="" class="rounded-full">
             </span>
             <div class="leading-tight">
               <p class="text-sm font-semibold tracking-tight text-slate-900">Make Leather</p>
