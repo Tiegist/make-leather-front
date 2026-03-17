@@ -79,11 +79,7 @@ const teamMembers = [
 
         <div class="rounded-[2rem] overflow-hidden ring-1 ring-black/5 shadow-premium bg-white">
           <div class="aspect-[4/3]">
-            <SmartImage
-              src="/images/workshop.svg"
-              alt="Workshop craftsmanship"
-              fallback-label="Workshop"
-            />
+            <img src="/about us page.png" alt="" class="w-160 h-120">
           </div>
         </div>
       </div>

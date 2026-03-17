@@ -18,7 +18,7 @@ const social = [
               class="grid h-10 w-10 place-items-center rounded-2xl bg-white/10 ring-1 ring-white/15"
               aria-hidden="true"
             >
-              <span class="text-[11px] font-semibold tracking-[0.18em]">ML</span>
+               <img src="/leather-logo.jpg" alt="" class="rounded-full">
             </span>
             <div class="leading-tight">
               <p class="text-base font-semibold tracking-tight">Make Leather</p>
